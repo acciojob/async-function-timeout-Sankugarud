@@ -1,17 +1,21 @@
-let btn = document.getElementById('btn');
-btn.addEventListener('click', callme);
-cy.get("div#output").should("have.text", "Test - 2");
-async function callme() {
-  let textInput = document.getElementById('text');
-  let inputValue = textInput.value;
+// script.js
+const btn = document.getElementById('btn');
+const textInput = document.getElementById('text');
+const delayInput = document.getElementById('delay');
+const outputDiv = document.getElementById('output');
 
-  let numberInput = document.getElementById('delay');
-  let numberValue = numberInput.value;
+btn.addEventListener('click', async () => {
+  const text = textInput.value;
+  const delay = Number(delayInput.value) * 1000;
 
-  await new Promise(resolve => {
-    setTimeout(resolve, numberValue * 1000);
-  });
+  await delayFunction(delay);
+  displayMessage(text);
+});
 
-  let output = document.getElementById('output');
-  output.innerHTML = inputValue;
+function delayFunction(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function displayMessage(message) {
+  outputDiv.textContent = message;
 }
